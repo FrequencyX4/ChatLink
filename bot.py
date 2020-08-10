@@ -1,5 +1,3 @@
-# Requirements: Python 3.6 or greater, and discord.py 1.4 or greater
-
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
 from io import BytesIO
