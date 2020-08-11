@@ -1,7 +1,7 @@
 {
-  "token": "",
-  "channel_one": 1234,
-  "channel_two": 1234,
-  "webhook_url_one": "",
-  "webhook_url_two": ""
+  "token": null,
+  "channel_one": null,
+  "channel_two": null,
+  "webhook_url_one": null,
+  "webhook_url_two": null
 }
