@@ -47,12 +47,13 @@ class ChatBridgeBot(commands.Bot):
 
 	async def on_message(self, msg):
 		if msg.channel.id in self.channel_ids and not str(msg.author).endswith('#0000'):
-			file = await msg.attachments[0].to_file() if msg.attachments else None
+			files = [await attachment.to_file() for attachment in msg.attachments]
+			embed = msg.embeds[0] if msg.embeds else None
 			async with aiohttp.ClientSession() as session:
 				webhook_url = self.webhook_urls[0] if msg.channel.id == self.channel_ids[1] else self.webhook_urls[1]
 				webhook = Webhook.from_url(webhook_url, adapter=AsyncWebhookAdapter(session))
 				await webhook.send(
-					msg.content, username=msg.author.name, avatar_url=msg.author.avatar_url, file=file
+					msg.content, username=msg.author.name, avatar_url=msg.author.avatar_url, files=files, embed=embed
 				)
 
 	def run(self):
