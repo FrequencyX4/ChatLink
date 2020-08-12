@@ -1,7 +1,6 @@
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
-from io import BytesIO
-import requests
+import json
 import os
 from discord.ext import commands
 import discord
@@ -9,15 +8,36 @@ import discord
 
 class ChatBridgeBot(commands.Bot):
 	def __init__(self, **options):
+		with open("./config.json", "r") as f:
+			config = json.load(f)
+		if not config["token"]:
+			print("Type in the bot token")
+			config["token"] = input()
+		if not config["channel_one"]:
+			print("Type in the channel_id for the first channel")
+			config["channel_one"] = int(input())
+		if not config["channel_two"]:
+			print("Type in the channel_id for the second channel")
+		if not config["webhook_url_one"]:
+			print("Type in the URL of the webhook in the first channel")
+			config["webhook_url_one"] = input()
+		if not config["webhook_url_two"]:
+			print("Type in the URL of the webhook in the first channel")
+			config["webhook_url_two"] = input()
+
+		with open("./config.json.tmp", "w+") as f:
+			f.write(json.dump(config, f))
+		os.rename("./config.json.tmp", "./config.json")
+
 		self.channel_ids = [
-			1234,  # First servers channel to be linked
-			1234  # Second servers channel to be linked
+			config["channel_one"],  # First servers channel to be linked
+			config["channel_two"]  # Second servers channel to be linked
 		]
 		self.webhook_urls = [
-			'server1_webhook_url',  # First servers webhook url
-			'server2_webhook_url'  # Second servers webhook url
+			config["webhook_url_one"],  # First servers webhook url
+			config["webhook_url_two"]   # Second servers webhook url
 		]
-		self.token = ""
+		self.token = config["token"]
 
 		super().__init__(command_prefix="!", **options)
 
