@@ -35,7 +35,7 @@ class ChatBridgeBot(commands.Bot):
 			config["webhook_url_two"] = input()
 
 		with open("./config.json", "w+") as f:
-			f.write(json.dump(config, f))
+			json.dump(config, f)
 
 		self.channel_ids = [
 			config["channel_one"],  # First servers channel to be linked
