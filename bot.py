@@ -18,6 +18,7 @@ class ChatBridgeBot(commands.Bot):
 			config["channel_one"] = int(input())
 		if not config["channel_two"]:
 			print("Type in the channel_id for the second channel")
+			config["channel_two"] = int(input())
 		if not config["webhook_url_one"]:
 			print("Type in the URL of the webhook in the first channel")
 			config["webhook_url_one"] = input()
