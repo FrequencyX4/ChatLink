@@ -8,8 +8,16 @@ import discord
 
 class ChatBridgeBot(commands.Bot):
 	def __init__(self, **options):
-		with open("./config.json", "r") as f:
-			config = json.load(f)
+		config = {
+			"token": None,
+			"channel_one": None,
+			"channel_two": None,
+			"webhook_url_one": None,
+			"webhook_url_two": None
+		}
+		if os.path.isfile("./config.json"):
+			with open("./config.json", "r") as f:
+				config = json.load(f)
 		if not config["token"]:
 			print("Type in the bot token")
 			config["token"] = input()
