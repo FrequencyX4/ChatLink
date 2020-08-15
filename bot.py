@@ -31,7 +31,7 @@ class ChatBridgeBot(commands.Bot):
 			print("Type in the URL of the webhook in the first channel")
 			config["webhook_url_one"] = input()
 		if not config["webhook_url_two"]:
-			print("Type in the URL of the webhook in the first channel")
+			print("Type in the URL of the webhook in the second channel")
 			config["webhook_url_two"] = input()
 
 		with open("./config.json", "w+") as f:
