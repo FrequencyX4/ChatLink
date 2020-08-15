@@ -61,7 +61,8 @@ class ChatBridgeBot(commands.Bot):
 				webhook_url = self.webhook_urls[0] if msg.channel.id == self.channel_ids[1] else self.webhook_urls[1]
 				webhook = Webhook.from_url(webhook_url, adapter=AsyncWebhookAdapter(session))
 				await webhook.send(
-					msg.content, username=msg.author.name, avatar_url=msg.author.avatar_url, files=files, embed=embed
+					msg.content, username=msg.author.name, avatar_url=msg.author.avatar_url, files=files, embed=embed,
+					allowed_mentions=discord.AllowedMentions(everyone=False, roles=False, users=False)
 				)
 
 	def run(self):
